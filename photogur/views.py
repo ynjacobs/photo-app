@@ -12,7 +12,7 @@ def picture(request):
                 no_comments += 1
         picture.no_comments = no_comments
     
-    context = {'pictures': pictures }
+    context = {'pictures': pictures}
     
 
 
