@@ -9,12 +9,17 @@
 <body>
     <ul>
         {% for picture in pictures %}
+            <a href="{% url 'picture_details' id=picture.pk %}">
         
                <li>
                   {{ picture }}
                   <img src="{{ picture.url }}">
                </li>
+            
             <p>Comments: {{ picture.no_comments }}</p>
+            </a>
+            
+        
         {% endfor %}
        </ul>
   

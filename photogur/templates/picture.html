@@ -2,3 +2,18 @@
 <h2>By {{picture.artist}}</h2>
 
 <img src="{{picture.url}}" alt="{{picture.title}}" />
+
+{{ picture.comments.count }}
+<ul>
+{% for comment in picture.comments.all %}
+        
+            
+                  <li>{{ comment.message }}</li>
+
+             
+                  
+    
+              
+        
+        {% endfor %}
+</ul>
