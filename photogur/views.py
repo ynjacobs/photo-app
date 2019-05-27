@@ -2,9 +2,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from photogur.models import Picture, Comment
 
+
 def picture(request):
     comments = Comment.objects.all()
     pictures = Picture.objects.all()
+    
     for picture in pictures:
         no_comments = 0
         for comment in comments:
@@ -21,4 +23,10 @@ def picture(request):
 
 def root(request):
     return HttpResponseRedirect('/admin')
+
+def picture_show(request, id):
+    picture = Picture.objects.get(pk=id)
+    context = {'picture': picture}
+    response = render(request, 'picture.html', context)
+    return HttpResponse(response)
 
