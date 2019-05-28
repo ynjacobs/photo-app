@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from photogur.views import picture, root, picture_show
+from photogur.views import picture, root, picture_show, picture_search, create_comment
 
 urlpatterns = [
     path('', root),
@@ -23,4 +23,6 @@ urlpatterns = [
     path('pictures/', picture),
     path('pictures/<int:id>', picture_show),
     path('pictures/<int:id>', picture_show, name='picture_details'),
+    path('search', picture_search, name='picture_search'),
+    path('comments/new', create_comment, name='create_comment'),
 ]

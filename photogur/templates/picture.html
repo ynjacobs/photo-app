@@ -4,6 +4,10 @@
 <h2>{{picture.title}}</h2>
 <h2>By {{picture.artist}}</h2>
 
+<form action="{% url 'create_comment' %}" method="post">
+        <input type="hidden" name="picture" value="{{ picture.pk }}">
+</form>
+
 <img src="{{picture.url}}" alt="{{picture.title}}" />
 
 {{ picture.comments.count }}

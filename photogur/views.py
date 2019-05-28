@@ -30,3 +30,15 @@ def picture_show(request, id):
     response = render(request, 'picture.html', context)
     return HttpResponse(response)
 
+def picture_search(request):
+  query = request.GET['query']
+  search_results = Picture.objects.filter(artist=query)
+  context = {'pictures': search_results, 'query': query}
+  response = render(request, 'bunch.html', context)
+  return HttpResponse(response)
+
+def create_comment(request):
+  # this is where we'll receive the form submission
+  pass
+  
+
