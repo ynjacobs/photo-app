@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load staticfiles %}
+
+<head>
+    <title>Photogur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+</head>
+
 
 <body>
-    <h1>search results: {{ picture.count }}</h1> 
+    <h2>search results: <section>{{ pictures.count }}</section></h2>
     <ul>
         {% for picture in pictures %}
-        
-               <li>
-                  
-                  <img class="images" src="{{ picture.url }}">
-             <p class="pic-title">{{ picture }} by {{ picture.artist }}</p>    
-               </li>
-            
-            
-            </a>
-            
-        
+            <li>
+                <img class="images" src="{{ picture.url }}">
+                <p class="pic-title">{{ picture }} by {{ picture.artist }}</p>
+            </li>
         {% endfor %}
-       </ul>
-  
+    </ul>
+
 </body>
 
 {% endblock %}

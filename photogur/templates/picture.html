@@ -5,7 +5,24 @@
 <h2>By {{picture.artist}}</h2>
 
 <form action="{% url 'create_comment' %}" method="post">
+                {% csrf_token %}
         <input type="hidden" name="picture" value="{{ picture.pk }}">
+
+        <div class="field" class="field">
+                
+                <label for="comment_title">title</label>
+                <input id="comment_title" type="text" name="comment_title">
+
+                <label for="comment_message">message</label>
+                <textarea id="comment_message"  name="comment_message"></textarea>
+              </div>
+
+        <div class="field">
+        
+                <button type="submit">
+                  <span>create comment</span>
+                </button>
+        </div>
 </form>
 
 <img src="{{picture.url}}" alt="{{picture.title}}" />

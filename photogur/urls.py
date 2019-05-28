@@ -21,7 +21,6 @@ urlpatterns = [
     path('', root),
     path('admin/', admin.site.urls),
     path('pictures/', picture),
-    path('pictures/<int:id>', picture_show),
     path('pictures/<int:id>', picture_show, name='picture_details'),
     path('search', picture_search, name='picture_search'),
     path('comments/new', create_comment, name='create_comment'),

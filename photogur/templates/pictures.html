@@ -6,9 +6,10 @@
             <a href="{% url 'picture_details' id=picture.pk %}">
         
                <li>
-                  
+                  <span>
                   <img class="images" src="{{ picture.url }}">
-             <p class="pic-title">{{ picture }} by {{ picture.artist }}</p>    
+             <p class="pic-title">{{ picture }} by {{ picture.artist }}</p> 
+                </span>
                </li>
             
             

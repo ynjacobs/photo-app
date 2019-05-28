@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from photogur.models import Picture, Comment
+from django.urls import reverse
+
 
 
 def picture(request):
@@ -16,8 +18,6 @@ def picture(request):
     
     context = {'pictures': pictures}
     
-
-
     response = render(request, 'pictures.html', context)
     return HttpResponse(response)
 
@@ -38,7 +38,13 @@ def picture_search(request):
   return HttpResponse(response)
 
 def create_comment(request):
-  # this is where we'll receive the form submission
-  pass
-  
+    comment_title = request.POST['comment_title']
+    comment_msg = request.POST['comment_message']
+    pic_id = request.POST['picture']
+    new_comment_pic = Picture.objects.get(id = pic_id)
+    comment = Comment(name=comment_title, message=comment_msg, picture=new_comment_pic)
+    comment.save()
+    print('tiotle', comment_title,'-' ,'msg:', comment_msg,'pic', new_comment_pic)
+    # return HttpResponseRedirect(reverse('picture'))
+    return redirect('picture_details', id= pic_id)
 
