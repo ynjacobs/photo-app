@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from photogur.models import Picture, Comment
 from django.urls import reverse
+from photogur.forms import LoginForm
 
 
 
@@ -47,4 +48,10 @@ def create_comment(request):
     print('tiotle', comment_title,'-' ,'msg:', comment_msg,'pic', new_comment_pic)
     # return HttpResponseRedirect(reverse('picture'))
     return redirect('picture_details', id= pic_id)
+
+def login_view(request):
+    form = LoginForm()
+    context = {'form': form}
+    http_response = render(request, 'login.html', context)
+    return HttpResponse(http_response)
 
