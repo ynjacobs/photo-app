@@ -2,7 +2,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from photogur.models import Picture, Comment
 from django.urls import reverse
-from photogur.forms import LoginForm
+from photogur.forms import LoginForm, PictureForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -45,13 +48,67 @@ def create_comment(request):
     new_comment_pic = Picture.objects.get(id = pic_id)
     comment = Comment(name=comment_title, message=comment_msg, picture=new_comment_pic)
     comment.save()
-    print('tiotle', comment_title,'-' ,'msg:', comment_msg,'pic', new_comment_pic)
+    print('title', comment_title,'-' ,'msg:', comment_msg,'pic', new_comment_pic)
     # return HttpResponseRedirect(reverse('picture'))
     return redirect('picture_details', id= pic_id)
 
 def login_view(request):
-    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username=username, password=pw)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/pictures')
+            else:
+                form.add_error('username', 'Login failed')
+    else:
+        form = LoginForm()
+
     context = {'form': form}
     http_response = render(request, 'login.html', context)
     return HttpResponse(http_response)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/pictures')
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return HttpResponseRedirect('pictures')
+    else:
+        form = UserCreationForm()
+    html_response =  render(request, 'signup.html', {'form': form})
+    return HttpResponse(html_response)
+
+@login_required
+def add_pic(request):
+    if request.method == 'POST':
+        picture = Picture(user = request.user)
+        picture.user = request.user
+        form = PictureForm(request.POST, instance=picture)
+        if form.is_valid():
+            add_pic = form.save()
+            return HttpResponseRedirect('/pictures')
+        else:
+            context = { 'form': form }
+            response = render(request, 'add_pics.html', context)
+            return HttpResponse(response)
+    else:
+        form = PictureForm()
+        context = { 'form': form }
+        response = render(request, 'add_pics.html', context)
+        return HttpResponse(response)
+
 

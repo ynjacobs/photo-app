@@ -4,6 +4,7 @@
     <ul>
         {% for picture in pictures %}
             <a href="{% url 'picture_details' id=picture.pk %}">
+                    {{ request.user.username }}
         
                <li>
                   <span>

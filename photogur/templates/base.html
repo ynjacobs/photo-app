@@ -6,7 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
-<body>
+
+
+<body>{% if request.user.is_authenticated %}
+    <!-- display link to log out -->
+    <a href= "{% url 'logout' %}"> Logout </a>
+  {% else %}
+    <!-- display link to login page -->
+    <a href= "{% url 'login' %}"> Login </a>
+  {% endif %}
         <header>
                 <h1>Photogur</h1>
                 <form action="{% url 'picture_search' %}" method="get">
