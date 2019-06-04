@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{% block content %}
+    <a href="{% url 'picture_details' id=pic_id %}">Return without editing</a>
+
+    {{ error_msg }}
+    <form method='post' action="{% url 'edit_picture' id=pic_id %}">
+        {% csrf_token %}
+        {{ picture_form }}
+        <input type='submit'>
+    </form>
+{% endblock %}

@@ -3,26 +3,22 @@
 
 <h2>Add new pic</h2>
 
-
 <ul>
     {% for pic in add_pic.pictures.all %}
-        <li>
-           
-            <p>{{ picture.title }}</p>
-            <p>{{ picture.body }}</p>
-            <p>{{ picture.url }}</p>
-        </li> 
+    <li>
+        <p>{{ picture.title }}</p>
+        <p>{{ picture.body }}</p>
+        <p>{{ picture.url }}</p>
+    </li>
     {% endfor %}
 </ul>
 
 <form action="{% url 'add_pic' %}" method="post">
     {% csrf_token %}
-    
 
-                {{ form.as_p }}
+    {{ form.as_p }}
 
     <div class="field">
-
         <button type="submit">
             <span>add pic</span>
         </button>
@@ -34,7 +30,6 @@
     {% for pic in add_pic.pictures.all %}
 
     <li>{{ picture.url }}</li>
-    
 
     {% endfor %}
 </ul>
