@@ -128,7 +128,7 @@ def add_pic(request):
 @login_required
 def edit_picture(request, id):
     picture = get_object_or_404(Picture, id=id, user=request.user.pk)
-    picture_form = PictureForm(request.POST, instance=picture))
+    picture_form = PictureForm(request.POST, instance=picture)
 
     if picture_form.is_valid():
         picture_form.save()
